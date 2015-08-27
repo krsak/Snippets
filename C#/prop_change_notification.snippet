@@ -1,0 +1,41 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<CodeSnippets xmlns="http://schemas.microsoft.com/VisualStudio/2005/CodeSnippet">
+  <CodeSnippet Format="1.0.0">
+    <Header>
+      <Title>Property Change Notification</Title>
+      <Shortcut>propchg</Shortcut>
+      <Description>変更通知付きプロパティ</Description>
+      <Author>krsak</Author>
+      <SnippetTypes>
+        <SnippetType>Expansion</SnippetType>
+      </SnippetTypes>
+    </Header>
+    <Snippet>
+      <Declarations>
+        <Literal>
+          <ID>type</ID>
+          <ToolTip>プロパティの型</ToolTip>
+          <Default>MyPropertyType</Default>
+        </Literal>
+        <Literal>
+          <ID>property</ID>
+          <ToolTip>プロパティ名</ToolTip>
+          <Default>MyPropertyName</Default>
+        </Literal>
+      </Declarations>
+      <Code Language="CSharp"><![CDATA[public $type$ $property$
+{
+	get { return this.$property$_; }
+	set
+	{
+		if (this.$property$_ == value) return;
+		this.$property$_ = value;
+		this.PropertyChanged?.Invoke(this, $property$PropertyChangedEventArgs);
+	}
+}
+private $type$ $property$_;
+private static readonly PropertyChangedEventArgs $property$PropertyChangedEventArgs = new PropertyChangedEventArgs(nameof($property$));
+]]></Code>
+    </Snippet>
+  </CodeSnippet>
+</CodeSnippets>
